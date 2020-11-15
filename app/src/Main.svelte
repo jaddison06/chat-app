@@ -1,8 +1,11 @@
 <script>
-import { onMount } from "svelte";
+    import { onMount } from "svelte";
 
 
     export let name;
+    export let SERVER;
+    export let DEBUG;
+
     let currentMsg="";
     let users = ['you', 'them', 'someone else'];
     let messages = [
@@ -41,7 +44,7 @@ import { onMount } from "svelte";
 </script>
 
 <style>
-    #usersSidebar {
+    #sidebar {
         width: 10%;
         position: fixed;
         height: 100%;
@@ -51,6 +54,7 @@ import { onMount } from "svelte";
         background-color: rgb(49, 49, 49);
         overflow-x: hidden;
         padding-top: 20px;
+        color:rgb(255, 255, 255);
     }
     #users {
         position: absolute;
@@ -59,8 +63,10 @@ import { onMount } from "svelte";
     .me {
         color:rgb(5, 143, 185);
     }
-    .otherUser {
-        color:rgb(255, 255, 255);
+    #info {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
     }
 
     #messageArea {
@@ -85,9 +91,6 @@ import { onMount } from "svelte";
     }
     .messageSenderNotMe {
         color:rgb(49, 49, 49);
-    }
-    .messageText {
-        font-style: italic;
     }
 
     #messageControls {
@@ -114,13 +117,22 @@ import { onMount } from "svelte";
 
 </style>
 
-<div id = "usersSidebar">
+<div id = "sidebar">
+
     <div id = "users">
         <p class = "me">{name}</p>
         {#each users as user}
-        <p class = "otherUser">{user}</p>
+        <p>{user}</p>
         {/each}
     </div>
+
+    {#if DEBUG}
+    <div id = "info">
+        <p>Name: <span class = "me">{name}</span></p>
+        <p>Server: {SERVER}</p>
+    </div>
+    {/if}
+
 </div>
 
 <div id = "messageArea">

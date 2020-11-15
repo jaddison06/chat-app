@@ -3,13 +3,16 @@ import { onMount } from 'svelte';
 
 	import Main from './Main.svelte';
 
+	const SERVER = "localhost";
+	const DEBUG = true;
+
 	document.title = "shitty chat app";
 
-	//let logged_in = false;
-	let logged_in = true;
-	let name = 'me';
+	let logged_in = DEBUG;
+	let name = DEBUG ? 'jaddison' : '';
+
 	function login() {
-		logged_in = true;
+		logged_in = !(name==='')
 	}
 
 	function inputKeypress(event) {
@@ -28,5 +31,5 @@ import { onMount } from 'svelte';
 <input bind:value = {name} on:keydown={inputKeypress} type = "text" bind:this = {nameInput}/>
 <button on:click = {login}>Log me in!</button>
 {:else}
-<Main name = {name}/>
+<Main name = {name} SERVER = {SERVER} DEBUG = {DEBUG}/>
 {/if}
